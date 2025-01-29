@@ -1,3 +1,5 @@
+# numista.py is part of coin_tracker by opDavi1; see LICENSE for details
+
 import requests
 import coin
 from settings import settings

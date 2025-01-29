@@ -1,3 +1,5 @@
+# app.py is part of coin_tracker by opDavi1; see LICENSE for details
+
 import tkinter as tk
 
 

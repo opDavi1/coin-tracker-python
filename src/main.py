@@ -1,3 +1,5 @@
+# main.py is part of coin_tracker by opDavi1; see LICENSE for details
+
 import database as db
 from app import CoinTracker
 # from coin import Coin

@@ -1,3 +1,5 @@
+# database.py is part of coin_tracker by opDavi1; see LICENSE for details
+
 import sqlite3
 from settings import settings
 from coin import Coin

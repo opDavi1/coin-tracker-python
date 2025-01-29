@@ -1,3 +1,5 @@
+# coin.py is part of coin_tracker by opDavi1; see LICENSE for details
+
 from enum import Enum
 
 
