@@ -1,14 +1,15 @@
 import sqlite3
 import requests
+from settings import settings
 from coin import Coin
 
-DATABASE_NAME = "coin_database.db"
-API_KEY = ""
+DATABASE_NAME = settings["database_name"]
+API_KEY = settings["api_key"]
 
 
 def init():
     global sqlite_connection
-    sqlite_connection = sqlite3.connect(DATABASE_NAME)
+    sqlite_connection = sqlite3.connect(DATABASE_NAME + ".db")
     global cursor
     cursor = sqlite_connection.cursor()
     cursor.execute(
