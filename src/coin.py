@@ -16,6 +16,34 @@ class CoinType(Enum):
     OTHER = 10
 
 
+def coin_type_from_str(str: str):
+    str = str.upper()
+    if str == "STANDARD CIRCULATION COINS":
+        return CoinType.STANDARD_CIRCULATION_COINS
+    elif str == "CIRCULATING COMMEMORATIVE COINS":
+        return CoinType.CIRCULATING_COMMEMORATIVE_COINS
+    elif str == "NON-CIRCULATING COINS":
+        return CoinType.NON_CIRCULATING_COINS
+    elif str == "COLLECTOR COINS":
+        return CoinType.COLLECTOR_COINS
+    elif str == "SEIGE COINS":
+        return CoinType.SIEGE_COINS
+    elif str == "OFFICIEL NECESSITY COINS":
+        return CoinType.OFFICIAL_NECESSITY_COINS
+    elif str == "MERCHANT TOKENS":
+        return CoinType.MERCHANT_TOKENS
+    elif str == "LOCAL COINS":
+        return CoinType.LOCAL_COINS
+    elif str == "PATTERNS":
+        return CoinType.PATTERNS
+    elif str == "CONTEMPORARY COUNTERFEITS":
+        return CoinType.CONTEMPORARY_COUNTERFEITS
+    elif str == "PROTO-COINS":
+        return CoinType.PROTO_COINS
+    else:
+        return CoinType.OTHER
+
+
 class CoinShape(Enum):
     ROUND = 0
     SQUARE = 1
