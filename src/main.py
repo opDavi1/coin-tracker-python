@@ -1,5 +1,6 @@
 import database as db
-from gui import CoinTrackerGui
+from app import CoinTracker
+# from coin import Coin
 
 
 def main():
@@ -7,7 +8,8 @@ def main():
 
     res = cursor.execute("SELECT * FROM coins")
     print(res.fetchall())
-    gui = CoinTrackerGui()
+
+    CoinTracker()
 
 
 if __name__ == "__main__":

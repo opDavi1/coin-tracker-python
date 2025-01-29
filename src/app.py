@@ -1,7 +1,7 @@
 import tkinter as tk
 
 
-class CoinTrackerGui:
+class CoinTracker:
     def __init__(self):
         self.window = tk.Tk()
         self.window.geometry = "800x500"
