@@ -16,23 +16,23 @@ def init():
         + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
         + "numista_id INTEGER,"
         + "name TEXT NOT NULL,"
-        + "coin_type INT,"
+        + "coin_type INT,"  # CoinType enum as int value
         + "issuer TEXT,"
         + "country TEXT,"
         + "min_year INT,"
         + "max_year INT,"
         + "composition TEXT,"
-        + "shape INT,"
+        + "shape INT,"  # CoinShape enum as int value
         + "diameter REAL,"
         + "thickness REAL,"
         + "weight REAL,"
-        + "orientation INT,"
+        + "orientation INT,"  # CoinOrientation enum as int value
         + "denomination TEXT,"
         + "value REAL,"
         + "value_numerator INT,"
         + "value_denominator INT,"
         + "currency TEXT,"
-        + "grade INT,"
+        + "grade INT,"  # 0 - 70 sheldon scale
         + "obverse_image TEXT,"
         + "reverse_image TEXT,"
         + "obverse_description TEXT,"
@@ -95,4 +95,4 @@ def update_coin(old_coin: Coin, new_coin: Coin):
 
 # TODO: do better.
 def delete_coin(coin: Coin):
-    cursor.execute(f"DELETE FROM coins WHERE numista_id = {coin.numista_id}")
+    cursor.execute(f"DELETE FROM coins WHERE id = {coin.id}")

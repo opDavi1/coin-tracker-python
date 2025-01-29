@@ -33,6 +33,7 @@ class CoinOrientation(Enum):
 
 class Coin:
     def __init__(self):
+        self.id = 0
         self.numista_id = 0
         self.name = ""
         self.coin_type = CoinType.STANDARD_CIRCULATION_COINS
@@ -61,6 +62,7 @@ class Coin:
 
     def default(self):
         self = Coin()
+        self.id = 0
         self.numista_id = 22995
         self.name = "20 Kreuzers - Francis I"
         self.coin_type = CoinType.STANDARD_CIRCULATION_COINS
