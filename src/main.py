@@ -1,8 +1,10 @@
+import settings
 import database as db
 # from coin import Coin
 
 
 def main():
+    settings.init()
     cursor = db.init()
 
     # coin = Coin().default()
