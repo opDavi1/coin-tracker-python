@@ -1,18 +1,10 @@
 import database as db
-from coin import Coin
+from gui import CoinTrackerGui
 
 
 def main():
     cursor = db.init()
-
-    coin = Coin().default()
-    db.insert_coin(coin)
-
-    coin2 = Coin()
-    db.insert_coin(coin2)
-
-    res = cursor.execute("SELECT * FROM coins")
-    print(res.fetchall())
+    gui = CoinTrackerGui()
 
 
 if __name__ == "__main__":
