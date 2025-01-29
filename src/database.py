@@ -1,10 +1,8 @@
 import sqlite3
-import requests
 from settings import settings
 from coin import Coin
 
 DATABASE_NAME = settings["database_name"]
-API_KEY = settings["api_key"]
 
 
 def init():
@@ -104,21 +102,6 @@ def insert_coin(coin: Coin):
         ),
     )
     sqlite_connection.commit()
-
-
-def insert_coin_from_numista(numista_id: int):
-    response = requests.get(
-        "https://api.numista.com/v3/types/" + numista_id,
-        headers={"Numista-API-Key": API_KEY},
-    )
-
-    if response.status_code == 401:
-        raise Exception("The API key is missing or incorrect")
-
-    search_result = response.json()
-    print("===== Coin Found: =====")
-    print(search_result)
-    return search_result
 
 
 def get_coin_by_numista_id(numista_id: int):

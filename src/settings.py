@@ -5,6 +5,7 @@ import toml
 DEFAULT_SETTINGS = {
     "api_key": "",
     "database_name": "database",
+    "img_directory": "./img",
 }
 
 
