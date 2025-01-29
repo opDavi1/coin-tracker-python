@@ -1,9 +1,9 @@
 import sqlite3
+import requests
 from coin import Coin
 
-
-NUMISTA_API_KEY = ""
 DATABASE_NAME = "coin_database.db"
+API_KEY = ""
 
 
 def init():
@@ -46,7 +46,34 @@ def init():
 
 def insert_coin(coin: Coin):
     cursor.execute(
-        "INSERT INTO coins (id, numista_id, name, coin_type, issuer, country, min_year, max_year, composition, shape, diameter, thickness, weight, orientation, denomination, value, value_numerator, value_denominator, currency, grade, obverse_image, reverse_image, obverse_description, reverse_destription, is_demonitized, comments) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO coins ("
+        + "id,"
+        + "numista_id,"
+        + "name,"
+        + "coin_type,"
+        + "issuer,"
+        + "country,"
+        + "min_year,"
+        + "max_year,"
+        + "composition,"
+        + "shape,"
+        + "diameter,"
+        + "thickness,"
+        + "weight,"
+        + "orientation,"
+        + "denomination,"
+        + "value,"
+        + "value_numerator,"
+        + "value_denominator,"
+        + "currency,"
+        + "grade,"
+        + "obverse_image,"
+        + "reverse_image,"
+        + "obverse_description,"
+        + "reverse_destription,"
+        + "is_demonitized,"
+        + "comments)"
+        + "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         (
             coin.numista_id,
             coin.name,
@@ -78,21 +105,86 @@ def insert_coin(coin: Coin):
     sqlite_connection.commit()
 
 
+def insert_coin_from_numista(numista_id: int):
+    response = requests.get(
+        "https://api.numista.com/v3/types/" + numista_id,
+        headers={"Numista-API-Key": API_KEY},
+    )
+
+    if response.status_code == 401:
+        raise Exception("The API key is missing or incorrect")
+
+    search_result = response.json()
+    print("===== Coin Found: =====")
+    print(search_result)
+    return search_result
+
+
 def get_coin_by_numista_id(numista_id: int):
     res = cursor.execute("SELECT * FROM coins WHERE numista_id = ?", numista_id)
     return res.fetchone()
 
 
-# TODO: make this function not ass
-def update_coin(old_coin: Coin, new_coin: Coin):
+def update_coin(old_coin_id: int, new_coin: Coin):
     cursor.execute(
-        "UPDATE coins "
-        + f"SET numista_id = {new_coin.numista_id}, name = {new_coin.name}, year = {new_coin.year}, country = {new_coin.country} "
-        + f"WHERE id = {old_coin.id}"
+        "UPDATE coins SET "
+        + "numista_id = ?,"
+        + "name = ?,"
+        + "coin_type.value = ?,"
+        + "issuer = ?,"
+        + "country = ?,"
+        + "min_year = ?,"
+        + "max_year = ?,"
+        + "composition = ?,"
+        + "shape.value = ?,"
+        + "diameter = ?,"
+        + "thickness = ?,"
+        + "weight = ?,"
+        + "orientation.value = ?,"
+        + "denomination = ?,"
+        + "value = ?,"
+        + "value_numerator = ?,"
+        + "value_denominator = ?,"
+        + "currency = ?,"
+        + "grade = ?,"
+        + "obverse_image = ?,"
+        + "reverse_image = ?,"
+        + "obverse_description = ?,"
+        + "reverse_destription = ?,"
+        + "is_demonitized = ?,"
+        + "comments = ?"
+        + "WHERE id = ?",
+        (
+            new_coin.numista_id,
+            new_coin.name,
+            new_coin.coin_type.value,
+            new_coin.issuer,
+            new_coin.country,
+            new_coin.min_year,
+            new_coin.max_year,
+            new_coin.composition,
+            new_coin.shape.value,
+            new_coin.diameter,
+            new_coin.thickness,
+            new_coin.weight,
+            new_coin.orientation.value,
+            new_coin.denomination,
+            new_coin.value,
+            new_coin.value_numerator,
+            new_coin.value_denominator,
+            new_coin.currency,
+            new_coin.grade,
+            new_coin.obverse_image,
+            new_coin.reverse_image,
+            new_coin.obverse_description,
+            new_coin.reverse_destription,
+            new_coin.is_demonitized,
+            new_coin.comments,
+            new_coin.id,
+        ),
     )
     sqlite_connection.commit()
 
 
-# TODO: do better.
 def delete_coin(coin: Coin):
-    cursor.execute(f"DELETE FROM coins WHERE id = {coin.id}")
+    cursor.execute("DELETE FROM coins WHERE id = ?", coin.id)
