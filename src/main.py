@@ -1,5 +1,6 @@
 import sqlite3
 
+NUMISTA_API_KEY = ""
 DATABASE_NAME = "cointracker.db"
 
 
@@ -21,6 +22,7 @@ class Coin:
         self.currency = ""
         self.value = ""
         self.coin_type = ""
+        self.grade = ""
         self.obverse_description = "Face"
         self.reverse_destription = ""
         self.demonitized = ""
@@ -43,6 +45,7 @@ class Coin:
         self.currency = "Gulden"
         self.value = "20 Kreuzers (1/3)"
         self.coin_type = "Standard circulation coins"
+        self.grade = ""
         self.obverse_description = "Bust of Franz I flanked by boughs"
         self.reverse_destription = "Double-headed eagle"
         self.demonitized = "Yes"
@@ -73,6 +76,7 @@ def db_init():
         + "currency TEXT,"
         + "value TEXT,"
         + "coin_type TEXT,"
+        + "grade TEXT,"
         + "obverse_description TEXT,"
         + "reverse_destription TEXT,"
         + "demonitized TEXT,"
@@ -83,7 +87,7 @@ def db_init():
 
 def coin_db_insert(coin: Coin):
     cursor.execute(
-        "INSERT INTO coins (id, numista_id, name, issuing_entity, country, location, year, composition, shape, diameter, thickness, weight, orientation, denomination, currency, value, coin_type, obverse_description, reverse_destription, demonitized, comments) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO coins (id, numista_id, name, issuing_entity, country, location, year, composition, shape, diameter, thickness, weight, orientation, denomination, currency, value, coin_type, grade, obverse_description, reverse_destription, demonitized, comments) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         (
             coin.numista_id,
             coin.name,
@@ -101,6 +105,7 @@ def coin_db_insert(coin: Coin):
             coin.currency,
             coin.value,
             coin.coin_type,
+            coin.grade,
             coin.obverse_description,
             coin.reverse_destription,
             coin.demonitized,
