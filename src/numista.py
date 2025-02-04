@@ -1,4 +1,5 @@
-# numista.py is part of coin_tracker by opDavi1; see LICENSE for details
+# this file is part of coin-tracker by opdavi1 and subject to the GNU GPL-3.0-or-later license.
+# See LICENSE for details or go to <https://www.gnu.org/licenses/>
 
 import requests
 import coin
