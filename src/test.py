@@ -11,9 +11,7 @@ example_coin = numista.get_coin_by_numista_id(23126)  # 1933 double eagle
 def main():
     db = Database()
     cursor = db.cursor
-    res = cursor.execute("SELECT * FROM coins")
-    if res.rowcount == 0:
-        db.insert_coin(example_coin)
+    db.insert_coin(example_coin)
 
     res = cursor.execute("SELECT * FROM coins")
     print(res.fetchall())

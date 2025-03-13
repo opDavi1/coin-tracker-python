@@ -6,43 +6,45 @@ from settings import settings
 from coin import Coin
 
 DATABASE_NAME = settings["database_name"]
-DATABASE_SQL = "CREATE TABLE IF NOT EXISTS coins ("
-+ "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-+ "numista_id INTEGER,"
-+ "name TEXT NOT NULL,"
-+ "coin_type INT,"  # CoinType enum as int value
-+ "issuer TEXT,"
-+ "country TEXT,"
-+ "min_year INT,"
-+ "max_year INT,"
-+ "composition TEXT,"
-+ "shape INT,"  # CoinShape enum as int value
-+ "diameter REAL,"
-+ "thickness REAL,"
-+ "weight REAL,"
-+ "orientation INT,"  # CoinOrientation enum as int value
-+ "denomination TEXT,"
-+ "value REAL,"
-+ "value_numerator INT,"
-+ "value_denominator INT,"
-+ "currency TEXT,"
-+ "grade INT,"  # 0 - 70 sheldon scale
-+ "obverse_image TEXT,"
-+ "reverse_image TEXT,"
-+ "obverse_description TEXT,"
-+ "reverse_destription TEXT,"
-+ "is_demonitized INT,"
-+ "comments TEXT)"
+DATABASE_SQL = (
+    "CREATE TABLE IF NOT EXISTS coins ("
+    + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+    + "numista_id INTEGER,"
+    + "name TEXT NOT NULL,"
+    + "coin_type INT,"  # CoinType enum as int value
+    + "issuer TEXT,"
+    + "country TEXT,"
+    + "min_year INT,"
+    + "max_year INT,"
+    + "composition TEXT,"
+    + "shape INT,"  # CoinShape enum as int value
+    + "diameter REAL,"
+    + "thickness REAL,"
+    + "weight REAL,"
+    + "orientation INT,"  # CoinOrientation enum as int value
+    + "denomination TEXT,"
+    + "value REAL,"
+    + "value_numerator INT,"
+    + "value_denominator INT,"
+    + "currency TEXT,"
+    + "grade INT,"  # 0 - 70 sheldon scale
+    + "obverse_image TEXT,"
+    + "reverse_image TEXT,"
+    + "obverse_description TEXT,"
+    + "reverse_destription TEXT,"
+    + "is_demonitized INT,"
+    + "comments TEXT)"
+)
 
 
 class Database:
-    def __init__(self, connection, cursor):
+    def __init__(self):
         sqlite_connection = sqlite3.connect(DATABASE_NAME + ".db")
         cursor = sqlite_connection.cursor()
         cursor.execute(DATABASE_SQL)
         print("init db")
 
-        self.connection = connection
+        self.connection = sqlite_connection
         self.cursor = cursor
 
     def close(self):
@@ -88,7 +90,7 @@ class Database:
             + "obverse_image,"
             + "reverse_image,"
             + "obverse_description,"
-            + "reverse_destription,"
+            + "reverse_description,"
             + "is_demonitized,"
             + "comments)"
             + "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -115,7 +117,7 @@ class Database:
                 coin.obverse_image,
                 coin.reverse_image,
                 coin.obverse_description,
-                coin.reverse_destription,
+                coin.reverse_description,
                 coin.is_demonitized,
                 coin.comments,
             ),
@@ -147,7 +149,7 @@ class Database:
             + "obverse_image = ?,"
             + "reverse_image = ?,"
             + "obverse_description = ?,"
-            + "reverse_destription = ?,"
+            + "reverse_description = ?,"
             + "is_demonitized = ?,"
             + "comments = ?"
             + "WHERE id = ?",
@@ -174,7 +176,7 @@ class Database:
                 new_coin.obverse_image,
                 new_coin.reverse_image,
                 new_coin.obverse_description,
-                new_coin.reverse_destription,
+                new_coin.reverse_description,
                 new_coin.is_demonitized,
                 new_coin.comments,
                 new_coin.id,
