@@ -1,20 +1,19 @@
 # this file is part of coin-tracker by opdavi1 and subject to the GNU GPL-3.0-or-later license.
 # See LICENSE for details or go to <https://www.gnu.org/licenses/>
 
+from coin import Coin
 from database import Database
-import numista
 
 
-example_coin = numista.get_coin_by_numista_id(23126)  # 1933 double eagle
+example_coin = Coin().default()
 
 
 def main():
     db = Database()
-    cursor = db.cursor
     db.insert_coin(example_coin)
 
-    res = cursor.execute("SELECT * FROM coins")
-    print(res.fetchall())
+    coins = db.get_all_coins()
+    print(coins)
 
     db.close()
 

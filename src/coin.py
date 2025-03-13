@@ -119,3 +119,32 @@ class Coin:
         self.is_demonitized = True
         self.comments = "There are slight differences between the workshops. The image below, for example, highlights the shift in the legends on the obverse left between A and B, whereas the portraits and branches are almost exactly the same. The writing on B is shifted downwards:"
         return self
+
+    def from_sql_row(self, row: str):
+        self.id = row[0]
+        self.numista_id = row[1]
+        self.name = row[2]
+        self.coin_type = row[3]
+        self.min_year = row[4]
+        self.max_year = row[5]
+        self.country = row[6]
+        self.issuer = row[7]
+        self.composition = row[8]
+        self.shape = row[9]
+        self.diameter = row[10]
+        self.thickness = row[11]
+        self.weight = row[12]
+        self.orientation = row[13]
+        self.denomination = row[14]
+        self.value = row[15]
+        self.value_numerator = row[16]
+        self.value_denominator = row[17]
+        self.currency = row[18]
+        self.grade = row[19]
+        self.obverse_image = row[20]
+        self.reverse_image = row[21]
+        self.obverse_description = row[22]
+        self.reverse_description = row[23]
+        self.is_demonitized = row[24]
+        self.comments = row[25]
+        return self

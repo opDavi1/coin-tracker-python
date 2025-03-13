@@ -31,7 +31,7 @@ DATABASE_SQL = (
     + "obverse_image TEXT,"
     + "reverse_image TEXT,"
     + "obverse_description TEXT,"
-    + "reverse_destription TEXT,"
+    + "reverse_description TEXT,"
     + "is_demonitized INT,"
     + "comments TEXT)"
 )
@@ -53,16 +53,25 @@ class Database:
     def delete_coin(self, coin: Coin):
         self.cursor.execute("DELETE FROM coins WHERE id = ?", coin.id)
 
+    def get_all_coins(self):
+        res = self.cursor.execute("SELECT * FROM COINS")
+        coin_rows = res.fetchall()
+        coins = []
+        for row in coin_rows:
+            coins.append(Coin().from_sql_row(row))
+
+        return coins
+
+    def get_coin_by_id(self, id: int):
+        res = self.cursor.execute("SELECT * FROM coins WHERE id = ?", id)
+        return Coin().from_sql_row(res.fetchone())
+
     def get_coin_by_numista_id(self, numista_id: int):
         res = self.cursor.execute(
             "SELECT * FROM coins WHERE numista_id = ?",
             numista_id
         )
-        return res.fetchone()
-
-    def get_coin_by_id(self, id: int):
-        res = self.cursor.execute("SELECT * FROM coins WHERE id = ?", id)
-        return res.fetchone()
+        return Coin().from_sql_row(res.fetchone())
 
     def insert_coin(self, coin: Coin):
         self.cursor.execute(
