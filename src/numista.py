@@ -8,7 +8,7 @@ from settings import settings
 API_KEY = settings["api_key"]
 
 
-def get_coin_by_numista_id(numista_id: int):
+def get_coin_by_numista_id(numista_id: int) -> coin.Coin:
     response = requests.get(
         "https://api.numista.com/v3/types/" + str(numista_id),
         headers={"Numista-API-Key": API_KEY},
